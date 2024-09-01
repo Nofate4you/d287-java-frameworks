@@ -1,15 +1,12 @@
 package com.example.demo.bootstrap;
 
+import com.example.demo.domain.InhousePart;
 import com.example.demo.domain.OutsourcedPart;
 import com.example.demo.domain.Part;
 import com.example.demo.domain.Product;
 import com.example.demo.repositories.OutsourcedPartRepository;
 import com.example.demo.repositories.PartRepository;
 import com.example.demo.repositories.ProductRepository;
-import com.example.demo.service.OutsourcedPartService;
-import com.example.demo.service.OutsourcedPartServiceImpl;
-import com.example.demo.service.ProductService;
-import com.example.demo.service.ProductServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -39,33 +36,15 @@ public class BootStrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-       /*
-        OutsourcedPart o= new OutsourcedPart();
-        o.setCompanyName("Western Governors University");
-        o.setName("out test");
-        o.setInv(5);
-        o.setPrice(20.0);
-        o.setId(100L);
-        outsourcedPartRepository.save(o);
-        OutsourcedPart thePart=null;
-        List<OutsourcedPart> outsourcedParts=(List<OutsourcedPart>) outsourcedPartRepository.findAll();
-        for(OutsourcedPart part:outsourcedParts){
-            if(part.getName().equals("out test"))thePart=part;
-        }
-
-        System.out.println(thePart.getCompanyName());
-        */
         List<OutsourcedPart> outsourcedParts=(List<OutsourcedPart>) outsourcedPartRepository.findAll();
         for(OutsourcedPart part:outsourcedParts){
             System.out.println(part.getName()+" "+part.getCompanyName());
         }
 
-        /*
-        Product bicycle= new Product("bicycle",100.0,15);
-        Product unicycle= new Product("unicycle",100.0,15);
-        productRepository.save(bicycle);
-        productRepository.save(unicycle);
-        */
+        // adding only if the samples are empty
+        if (partRepository.count() == 0 && productRepository.count() == 0) {
+            addSampleInventory();
+        }
 
         System.out.println("Started in Bootstrap");
         System.out.println("Number of Products"+productRepository.count());
@@ -73,5 +52,44 @@ public class BootStrapData implements CommandLineRunner {
         System.out.println("Number of Parts"+partRepository.count());
         System.out.println(partRepository.findAll());
 
+    }
+
+    private void addSampleInventory() {
+        // Sample data. Checks and adds the parts if they don't already exist
+        addPartIfNotExists("Engine V8", 2500.00, 5);
+        addPartIfNotExists("All-Season Tire", 150.00, 20);
+        addPartIfNotExists("Brake Pads", 75.00, 30);
+        addPartIfNotExists("12V Battery", 120.00, 15);
+        addPartIfNotExists("Spark Plugs", 10.00, 100);
+
+        // Sample data. Checks and adds products if they don't already exist
+        addProductIfNotExists("Mustang GT", 35000.00, 2);
+        addProductIfNotExists("Camaro SS", 37000.00, 3);
+        addProductIfNotExists("Charger R/T", 32000.00, 1);
+        addProductIfNotExists("Corvette Z06", 75000.00, 1);
+        addProductIfNotExists("Tesla Model S", 80000.00, 2);
+
+        System.out.println("Sample Inventory");
+    }
+    private void addPartIfNotExists(String name, double price, int inv) {
+        Optional<Part> part = partRepository.findByName(name);
+        if (part.isEmpty()) {
+            InhousePart newPart = new InhousePart();
+            newPart.setName(name);
+            newPart.setPrice(price);
+            newPart.setInv(inv);
+            partRepository.save(newPart);
+        }
+    }
+
+    private void addProductIfNotExists(String name, double price, int inv) {
+        Optional<Product> product = productRepository.findByName(name);
+        if (product.isEmpty()) {
+            Product newProduct = new Product();
+            newProduct.setName(name);
+            newProduct.setPrice(price);
+            newProduct.setInv(inv);
+            productRepository.save(newProduct);
+        }
     }
 }
