@@ -29,6 +29,12 @@ public abstract class Part implements Serializable {
     @Min(value = 0, message = "Inventory value must be positive")
     int inv;
 
+    // Min and max inventory fields with default column values
+    @Column(nullable = false, columnDefinition = "int default 1")
+    int minInventory = 1;
+    @Column(nullable = false, columnDefinition = "int default 10")
+    int maxInventory = 10;
+
     @ManyToMany
     @JoinTable(name="product_part", joinColumns = @JoinColumn(name="part_id"),
             inverseJoinColumns=@JoinColumn(name="product_id"))
@@ -48,6 +54,20 @@ public abstract class Part implements Serializable {
         this.name = name;
         this.price = price;
         this.inv = inv;
+    }
+
+    // Adding getters and setters for min and max inventory fields
+    public int getMinInventory() {
+        return minInventory;
+    }
+    public void setMinInventory(int minInventory) {
+        this.minInventory = minInventory;
+    }
+    public int getMaxInventory() {
+        return maxInventory;
+    }
+    public void setMaxInventory(int maxInventory) {
+        this.maxInventory = maxInventory;
     }
 
     public long getId() {
@@ -107,4 +127,15 @@ public abstract class Part implements Serializable {
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
     }
+
+    // adding the validator to enforce inventory between min and max
+    public void validateInventory() {
+        if (this.inv < this.minInventory) {
+            this.inv = this.minInventory;
+        } else if (this.inv > this.maxInventory) {
+            this.inv = this.maxInventory;
+        }
+    }
 }
+
+

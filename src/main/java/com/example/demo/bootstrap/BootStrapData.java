@@ -78,7 +78,11 @@ public class BootStrapData implements CommandLineRunner {
             newPart.setName(name);
             newPart.setPrice(price);
             newPart.setInv(inv);
-            partRepository.save(newPart);
+            int minInventory = 1;
+            newPart.setMinInventory(minInventory); //sets minimum inventory
+            int maxInventory = 9;
+            newPart.setMaxInventory(maxInventory); // Sets maximum inventory
+            partRepository.save(newPart); 
         }
     }
 

@@ -28,7 +28,7 @@ Line number & Changes:
 85-95: Created addProductIfNotExists() method to add a product only if it doesn't already exist in the repository.
 
 "TASK F" 
-Prompt: 
+Prompt: added success or fail validators
 File name: AddProductController.java, Product.java, mainscreen.html
 Line number & Changes:
 86: added a Buy Now button and style it similar to the others like delete, update.
@@ -37,9 +37,19 @@ Line number & Changes:
 1-15 in errobuyproduct.html I added the visual view for failure pop up when product is out of stock
 1-15 on confirmationbuyproduct.html I added the visual to display if it was a successful purchase an option to go to main page
 
-
-
-
-
+"TASK G"
+Prompt: overall set the min and max value restrictions 
+File name: Part.java,inhoustPart.java,inhousePartForm.html, application.properties
+Line number & Changes: 
+32-36: added min and max inv fields in Part.java
+59-65: added getters and setters in Part.java
+81-84: in BootStrapData.java set a values for default min and max to 1min and 9max
+17-29: set up default min, max values inhousePart and create a constructor for inhousePart
+17-28: set up default min and max values for OutsourcePart.java and also created the corresponding constructor
+40-47: had to add getter and setters to inhousePart.java because I had type error for because I did not use camalcase this is just extra code I wrote.
+24-31: added visual look, label and textbox to inhousePartForm.html
+25-32: added form field for min and max to OutsourcePartForm.html to display visually in the website
+131-138: added min and max validator to enforce the inv is between min, max.
+6: application.properties I rename the database to Kevin_HotWheel_Rides
 
 
