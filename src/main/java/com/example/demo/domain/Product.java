@@ -90,6 +90,17 @@ public class Product implements Serializable {
     public String toString(){
         return this.name;
     }
+
+    // adding encapsulation in product.java for buy now
+    public boolean buyProduct() {
+        if (this.inv > 0) {
+            this.inv--;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

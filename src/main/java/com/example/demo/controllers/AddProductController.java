@@ -173,4 +173,20 @@ public class AddProductController {
         theModel.addAttribute("availparts",availParts);
         return "productForm";
     }
+
+    @GetMapping("/buyProduct")
+    public String buyProduct(@RequestParam("productID") int theID, Model theModel){
+        ProductService productService = context.getBean(ProductServiceImpl.class);
+        Product product=productService.findById(theID);
+
+        boolean purchaseSuccessful = product.buyProduct(); // uses encapsulation in product.java
+
+        if (purchaseSuccessful) {
+            productService.save(product);
+            return "confirmationbuyproduct";
+        } else {
+            theModel.addAttribute("errorMessage", "The product is out of stock.");
+            return "errorbuyproduct";
+        }
+    }
 }
