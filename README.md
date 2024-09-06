@@ -52,4 +52,19 @@ Line number & Changes:
 131-138: added min and max validator to enforce the inv is between min, max.
 6: application.properties I rename the database to Kevin_HotWheel_Rides
 
+"TASK H"
+Prompt:
+File name: Part.java, outsourceform.html,inhouseform.html, partform.html
+Line number & Changes:
+134 & 136: added in Part.java a validator that validates you put a min and max allowed value
+42-57: inhousepartform.html added method to visually displays allowed if not successfully gives error message
+12-13: method for saving outsourcepartform.html to the correct endpoint.
+12-28: partform.html defines input for minimum and maximum inventory in outsourcepartform.html and inhousepartform.html
 
+"TASK I"
+Prompt:
+File name: 
+Line number & Changes:
+
+
+ 

@@ -14,9 +14,9 @@
     <title>Kevin's Hot Wheels Dealership</title>
 </head>
 <body>
-    <nav>
-        <a href="/about">About Us</a>
-    </nav>
+<nav>
+    <a href="/about">About Us</a>
+</nav>
 
 <div class="container">
     <h1>Car Supply Shop</h1>
@@ -43,10 +43,19 @@
         </thead>
         <tbody>
         <tr th:each="tempPart : ${parts}">
-            <td th:text="${tempPart.name}">1</td>
+            <td>
+                <!-- Display Part Name -->
+                <span th:text="${tempPart.name}">Part Name</span>
+
+                <!-- If it's an Outsourced Part, show the company name in parentheses -->
+                <span th:if="${tempPart.getClass().getSimpleName() == 'OutsourcedPart'}">
+                    Company Name: <span th:text="${tempPart.companyName}">Company Name</span>
+                </span>
+            </td>
             <td th:text="${tempPart.price}">1</td>
             <td th:text="${tempPart.inv}">1</td>
-            <td><a th:href="@{/showPartFormForUpdate(partID=${tempPart.id})}" class="btn btn-primary btn-sm mb-3">Update</a>
+            <td>
+                <a th:href="@{/showPartFormForUpdate(partID=${tempPart.id})}" class="btn btn-primary btn-sm mb-3">Update</a>
                 <a th:href="@{/deletepart(partID=${tempPart.id})}" class="btn btn-primary btn-sm mb-3"
                    onclick="if(!(confirm('Are you sure you want to delete this part?')))return false">Delete</a>
             </td>

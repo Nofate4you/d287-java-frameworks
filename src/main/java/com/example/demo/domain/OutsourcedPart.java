@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("2")
 public class OutsourcedPart extends Part{
-String companyName;
+    private String companyName;
 
     public OutsourcedPart() {
         super();
@@ -21,10 +21,11 @@ String companyName;
         this.setMaxInventory(10);
     }
     // constructor for OutsourcePart
-    public OutsourcedPart(String name, double price, int inv, int minInventory, int maxInventory) {
+    public OutsourcedPart(String name, double price, int inv, int minInventory, int maxInventory, String companyName) {
         super(name, price, inv);
         this.setMinInventory(minInventory);
         this.setMaxInventory(maxInventory);
+        this.companyName = companyName;
     }
 
     public String getCompanyName() {

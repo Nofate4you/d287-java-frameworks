@@ -129,12 +129,13 @@ public abstract class Part implements Serializable {
     }
 
     // adding the validator to enforce inventory between min and max
-    public void validateInventory() {
+    public String validateInventory() {
         if (this.inv < this.minInventory) {
-            this.inv = this.minInventory;
+            return "Inventory is below the minimum allowed parts."; // logic for min validation
         } else if (this.inv > this.maxInventory) {
-            this.inv = this.maxInventory;
+            return "Inventory is above the maximum allowed parts."; // logic for max validation
         }
+        return null;
     }
 }
 
