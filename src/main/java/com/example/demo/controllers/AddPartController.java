@@ -37,11 +37,11 @@ public class AddPartController {
         if (inhouse) {
             InhousePart inhousePart = inhouserepo.findById(theId);
             theModel.addAttribute("inhousepart", inhousePart);
-            return "inhousepartform";  // Updated to lowercase
+            return "inhousepartform";  // Updated to all lowercase
         } else {
             OutsourcedPart outsourcedPart = outsourcedrepo.findById(theId);
             theModel.addAttribute("outsourcedpart", outsourcedPart);
-            return "outsourcedpartform";  // Updated to lowercase
+            return "outsourcedpartform";  // Updated to all lowercase
         }
     }
 
