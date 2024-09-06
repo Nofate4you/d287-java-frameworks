@@ -66,7 +66,13 @@ public class AddPartController {
             return "inhousepartform"; // If it's an inhouse part, return inhouse part form
         }
 
-        partService.save(inhousePart);
+        if (inhousePart.getId() != 0) {  // Check if it's an update
+            partService.update(inhousePart);  // calls the update method
+        } else {
+            partService.save(inhousePart);  // Create a new part
+
+        }
+
         return "redirect:/mainscreen";
     }
 
@@ -79,7 +85,12 @@ public class AddPartController {
             return "outsourcedpartform";  // If it's an outsourced part, return outsourced part form
         }
 
-        partService.save(outsourcedPart);
+        if (outsourcedPart.getId() != 0) {
+            partService.update(outsourcedPart);
+        } else {
+            partService.save(outsourcedPart);
+        }
+
         return "redirect:/mainscreen";
     }
 }

@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.InhousePart;
 import com.example.demo.domain.Part;
-import com.example.demo.domain.Product;
 import com.example.demo.repositories.PartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,15 @@ public class PartServiceImpl implements PartService{
         }
         return (List<Part>) partRepository.findAll();
     }
+
+
+
+    @Override
+    public void update(Part part) {
+            partRepository.save(part);   // to make the update both inhouse and outsorce part
+
+    }
+
     @Override
     public Part findById(int theId) {
         Long theIdl=(long)theId;

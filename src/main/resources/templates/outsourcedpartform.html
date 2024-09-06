@@ -12,6 +12,10 @@
 <!-- Form for saving/updating the Outsourced Part -->
 <form th:action="@{/saveOutsourcedPart}" th:object="${outsourcedpart}" method="POST">
 
+    <div>
+        <input type="hidden" th:field="*{id}" />    <!-- Critical hidden ID field to make sure outsource updates when you click update-->
+    </div>
+
     <!-- connects to partform.html -->
     <div th:replace="partform :: PartForm"></div>
 

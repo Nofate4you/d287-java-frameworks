@@ -1,11 +1,17 @@
 package com.example.demo.domain;
 
+import com.zaxxer.hikari.HikariConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -22,10 +28,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PartTest {
     Part partIn;
     Part partOut;
+    Validator validator;
     @BeforeEach
     void setUp() {
         partIn=new InhousePart();
         partOut=new OutsourcedPart();
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
     }
     @Test
     void getId() {
@@ -156,4 +166,35 @@ class PartTest {
         partOut.setId(1l);
         assertEquals(partIn.hashCode(),partOut.hashCode());
     }
+    // added test to ensure that minInventory can be set and retrieved in both InhousePart and OutsourcePart.
+    @Test
+    void setMinInventory() {
+        int minInv = 1;
+        partIn.setMinInventory(minInv);
+        assertEquals(minInv,partIn.getMinInventory());
+        partOut.setMinInventory(minInv);
+        assertEquals(minInv,partOut.getMinInventory());
+    }
+
+    // test to ensure that maxInventory value can be set and retrieved for InhousePart and OutsourcePart.
+    @Test
+    void setMaxInventory() {
+        int maxInv = 10;
+        partIn.setMaxInventory(maxInv);
+        assertEquals(maxInv,partIn.getMaxInventory());
+        partOut.setMaxInventory(maxInv);
+        assertEquals(maxInv,partOut.getMaxInventory());
+    }
+
+    /*@Test
+    void testDeletePartValidator() {
+        Part part = new InhousePart();
+        // Set values that would violate the validator's conditions
+        part.setProducts(new HashSet<>());
+
+
+        Set<ConstraintViolation<Part>> violations = validator.validate(part);
+        assertFalse(violations.isEmpty());
+    }*/
+
 }
